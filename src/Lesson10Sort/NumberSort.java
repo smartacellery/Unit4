@@ -2,11 +2,16 @@
 package Lesson10Sort;
 
 
+import javax.swing.DefaultListModel;
+
 public class NumberSort extends javax.swing.JFrame {
 
-   
+ DefaultListModel model = new DefaultListModel();
+    int rannum[] = new int[50000];
+    
     public NumberSort() {
         initComponents();
+        NumberList.setModel(model);
     }
 
   
@@ -17,7 +22,7 @@ public class NumberSort extends javax.swing.JFrame {
         Generatebtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        Sortbtn = new javax.swing.JButton();
+        Bubblebtn = new javax.swing.JButton();
         Selectionbtn = new javax.swing.JButton();
         Insertionbtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -28,24 +33,45 @@ public class NumberSort extends javax.swing.JFrame {
         Exitbtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         NumberList = new javax.swing.JList<>();
+        timelbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Generatebtn.setText("Generate Numbers");
         Generatebtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Generatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GeneratebtnActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setText("Sorting Algorithms");
 
-        Sortbtn.setText("Bubble Sort");
-        Sortbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Bubblebtn.setText("Bubble Sort");
+        Bubblebtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Bubblebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BubblebtnActionPerformed(evt);
+            }
+        });
 
         Selectionbtn.setText("Selection Sort");
         Selectionbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Selectionbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelectionbtnActionPerformed(evt);
+            }
+        });
 
         Insertionbtn.setText("Insertion Sort");
         Insertionbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Insertionbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertionbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,7 +81,7 @@ public class NumberSort extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Sortbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bubblebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Selectionbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Insertionbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -66,7 +92,7 @@ public class NumberSort extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(Sortbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Bubblebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Selectionbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -86,13 +112,10 @@ public class NumberSort extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(QuickSortbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel2)))
+                    .addComponent(QuickSortbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -100,9 +123,9 @@ public class NumberSort extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(QuickSortbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -117,17 +140,24 @@ public class NumberSort extends javax.swing.JFrame {
 
         Exitbtn.setText("Exit");
         Exitbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ClearListbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                    .addComponent(Exitbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(ClearListbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(Exitbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +165,7 @@ public class NumberSort extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(ClearListbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Exitbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(Exitbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -150,12 +180,19 @@ public class NumberSort extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Generatebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(timelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Generatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,14 +200,17 @@ public class NumberSort extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addComponent(Generatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timelbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 50, Short.MAX_VALUE))
+                        .addGap(0, 69, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -179,34 +219,119 @@ public class NumberSort extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ClearListbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearListbtnActionPerformed
-        // TODO add your handling code here:
+         model.clear();
     }//GEN-LAST:event_ClearListbtnActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void BubblebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BubblebtnActionPerformed
+        long startTime = System.currentTimeMillis();
+        bubbleSort(rannum);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+       timelbl.setText((System.currentTimeMillis() - startTime) + " milliseconds");
+    }//GEN-LAST:event_BubblebtnActionPerformed
+
+    private void InsertionbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertionbtnActionPerformed
+        long startTime = System.currentTimeMillis();
+        insertionSort(rannum);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+        timelbl.setText((System.currentTimeMillis() - startTime) + " milliseconds");
+    
+    }//GEN-LAST:event_InsertionbtnActionPerformed
+
+    private void GeneratebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneratebtnActionPerformed
+        model.clear();
+        for (int i = 0; i < rannum.length; i++) {
+            
+            rannum[i] = (int) (Math.random() * (50000) + 1);
+            model.addElement(rannum[i]);}  
+    }//GEN-LAST:event_GeneratebtnActionPerformed
+
+    private void SelectionbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectionbtnActionPerformed
+     long startTime = System.currentTimeMillis();
+        selectionSort(rannum);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+        timelbl.setText((System.currentTimeMillis() - startTime) + " milliseconds");
+    //GEN-LAST:event_btnselcActionPerformed// TODO add your handling code here:
+    }//GEN-LAST:event_SelectionbtnActionPerformed
+
+    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
+       System.exit(0); 
+    }//GEN-LAST:event_ExitbtnActionPerformed
+
+    public static void bubbleSort(int[] a) {
+        int k = 0;
+        boolean exchangeMade = true;
+        
+
+        while ((k < a.length - 1) && exchangeMade) {
+            exchangeMade = false;
+            k++;
+            for (int j = 0; j < a.length - k; j++) {
+                if (a[j] > a[j + 1]) {
+                    swap(a, j, j + 1);
+                    exchangeMade = true;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NumberSort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NumberSort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NumberSort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NumberSort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }
 
-        /* Create and display the form */
+    public static void insertionSort(int a[]) {
+        int numbertoinsert, j;
+        boolean stillLooking;
+        for (int k = 1; k < a.length; k++) {
+            numbertoinsert = a[k];
+            j = k - 1;
+            stillLooking = true;
+            while (j >= 0 && stillLooking) {
+                if (numbertoinsert < a[j]) {
+                    a[j + 1] = a[j];
+                    j--;
+                } else {                 
+                    stillLooking = false;
+                }
+                a[j + 1] = numbertoinsert;
+            }
+        }
+    }
+
+    public static void selectionSort(int[] a) {
+        for (int i = 0; i < a.length - 1; i++) {
+            int minIndex = findMinimum(a, i);
+            if (minIndex != i) 
+            {
+                swap(a, i, minIndex);
+            }
+        } 
+    }
+
+    public static int findMinimum(int[] a, int first) {
+        
+        int minIndex = first;
+        for (int i = first + 1; i < a.length; i++) {
+            if (a[i] < a[minIndex]) {
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
+
+    public static void swap(int[] a, int x, int y) {
+        int temp = a[x];
+        a[x] = a[y];
+        a[y] = temp;
+    }
+
+    public static void main(String args[]) {
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new NumberSort().setVisible(true);
@@ -215,6 +340,7 @@ public class NumberSort extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bubblebtn;
     private javax.swing.JButton ClearListbtn;
     private javax.swing.JButton Exitbtn;
     private javax.swing.JButton Generatebtn;
@@ -222,12 +348,12 @@ public class NumberSort extends javax.swing.JFrame {
     private javax.swing.JList<String> NumberList;
     private javax.swing.JButton QuickSortbtn;
     private javax.swing.JButton Selectionbtn;
-    private javax.swing.JButton Sortbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel timelbl;
     // End of variables declaration//GEN-END:variables
 }

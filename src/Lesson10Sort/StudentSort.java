@@ -7,10 +7,13 @@ import java.util.Scanner;
 import javax.swing.DefaultListModel;
 
 public class StudentSort extends javax.swing.JFrame {
+    ISSStudent iss[];
 DefaultListModel model; //holds data for list
-   ISSStudent iss[] = new ISSStudent[100];
+
+   
     public StudentSort() {
         initComponents();
+        iss=new ISSStudent[100];
         model=new DefaultListModel();
         nameList.setModel(model);
     }
@@ -103,28 +106,9 @@ DefaultListModel model; //holds data for list
         }
     }//GEN-LAST:event_sortButtonActionPerformed
 
-    public static void main(String[] args) {
-        int nums[] = new int[100];
-        for (int i = 0; i < 100; i++) {
-            nums[i] = (int) (Math.random() * 1000) + 1;
-            if (i % 20 == 0 && i != 0) {
-                System.out.println(nums[i] + " , ");
-            } else {
-                System.out.print(nums[i] + " , ");
-            }
-        }
-        System.out.println("\n\nSorted numbers >");
-        selectionSort(nums);
-        for (int i = 0; i < 100; i++) {
-            if (i % 20 == 0 && i != 0) {
-                System.out.println(nums[i] + " , ");
-            } else {
-                System.out.print(nums[i] + " , ");
-            }
-        }
-    }
+    
 
-    public static void selectionSort(ISSStudent[] a) {
+    public static void selectionSort(ISSStudent [] a) {
         for (int i = 0; i < a.length - 1; i++) {
             int minIndex = findMinimum(a, i);
             if (minIndex != i) //if lowest is not already in place
@@ -140,15 +124,16 @@ DefaultListModel model; //holds data for list
         //assume first is also the smallest for now
         int minIndex = first;
         for (int i = first + 1; i < a.length; i++) {
-            if (iss[i] < a[minIndex]) {
+            if (a[i].compareTo(a[minIndex]) < 0) {
                 minIndex = i;
             }
         }
         return minIndex;
     }
+  
 
 //supporting swap method (same as bubble sort swap)
-    public static void swap(int[] a, int x, int y) {
+    public static void swap(ISSStudent[] a, int x, int y) {
         ISSStudent temp = a[x];
         a[x] = a[y];
         a[y] = temp;
