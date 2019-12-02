@@ -104,6 +104,11 @@ public class NumberSort extends javax.swing.JFrame {
 
         QuickSortbtn.setText("Quick Sort");
         QuickSortbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        QuickSortbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QuickSortbtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Recursion");
 
@@ -251,7 +256,7 @@ public class NumberSort extends javax.swing.JFrame {
             model.addElement(rannum[i]);}  
     }//GEN-LAST:event_GeneratebtnActionPerformed
 
-    private void SelectionbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectionbtnActionPerformed
+    private void SelectionbtnActionPerformed(java.awt.event.ActionEvent evt) {                                             
      long startTime = System.currentTimeMillis();
         selectionSort(rannum);
         model.clear();
@@ -259,12 +264,22 @@ public class NumberSort extends javax.swing.JFrame {
             model.addElement(rannum[x]);
         }
         timelbl.setText((System.currentTimeMillis() - startTime) + " milliseconds");
-    //GEN-LAST:event_btnselcActionPerformed// TODO add your handling code here:
-    }//GEN-LAST:event_SelectionbtnActionPerformed
+                                                                               
+    }                                            
 
     private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
        System.exit(0); 
     }//GEN-LAST:event_ExitbtnActionPerformed
+
+    private void QuickSortbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuickSortbtnActionPerformed
+        long startTime = System.currentTimeMillis();
+        quickSort(rannum,0,rannum.length-1);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+        timelbl.setText((System.currentTimeMillis() - startTime) + " milliseconds");// TODO add your handling code here:
+    }//GEN-LAST:event_QuickSortbtnActionPerformed
 
     public static void bubbleSort(int[] a) {
         int k = 0;
@@ -311,6 +326,27 @@ public class NumberSort extends javax.swing.JFrame {
             }
         } 
     }
+     public static void quickSort (int[] a, int left,int right){
+     
+         if (left>=right) return;
+     int i=left;
+     int j=right;
+     int pivotValue = a[(left+right)/2];
+     while (i<j) {
+         while (a[i] < pivotValue) i++;
+         while (pivotValue < a[j]) j--;
+         if (i<=j){
+             int temp = a[i];
+             a[i]=a[j];
+             a[j]=temp;
+             i++;
+             j--;}
+             
+         }
+         quickSort (a, left,j);
+         quickSort(a,i,right);
+     
+     }
 
     public static int findMinimum(int[] a, int first) {
         
