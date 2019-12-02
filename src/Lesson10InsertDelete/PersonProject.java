@@ -2,11 +2,12 @@ package Lesson10InsertDelete;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class PersonProject extends javax.swing.JFrame {
 
     ArrayList<Person> people = new ArrayList();
-    DefaultListModel model = new DefaultListModel();
+    DefaultListModel list = new DefaultListModel();
 
     public PersonProject() {
         initComponents();
@@ -15,11 +16,11 @@ public class PersonProject extends javax.swing.JFrame {
         people.add(new Person("Mike", "M", 15));
         people.add(new Person("Sue", "F", 30));
         //connect model to the list
-        lstpeople.setModel(model);
+        lstpeople.setModel(list);
 
         //add names of people to list
         for (Person p : people) {
-            model.addElement(p.getName());
+            list.addElement(p.getName());
         }
     }
 
@@ -31,6 +32,12 @@ public class PersonProject extends javax.swing.JFrame {
         } else {
             optFemale.setSelected(true);
         }
+    }
+    public void clearForm(){
+        txtname.setText("");
+        txtage.setText("");
+        buttonGroup1.clearSelection();
+        lstpeople.clearSelection();
     }
 
     public static int findInsertPoint(ArrayList a, Object searchValue) {
@@ -72,7 +79,7 @@ public class PersonProject extends javax.swing.JFrame {
         return -1;
 
     }
-
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,15 +98,15 @@ public class PersonProject extends javax.swing.JFrame {
         lstpeople = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnuexit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnuclear = new javax.swing.JMenuItem();
         mnuadd = new javax.swing.JMenuItem();
         mnudelete = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mnushowall = new javax.swing.JMenuItem();
+        mnufemale = new javax.swing.JMenuItem();
+        mnumale = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -130,7 +137,7 @@ public class PersonProject extends javax.swing.JFrame {
                 .addComponent(optMale, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(optFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,9 +158,15 @@ public class PersonProject extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/exit.png"))); // NOI18N
-        jMenuItem2.setText("Exit");
-        jMenu1.add(jMenuItem2);
+        mnuexit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        mnuexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/exit.png"))); // NOI18N
+        mnuexit.setText("Exit");
+        mnuexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuexitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuexit);
 
         jMenuBar1.add(jMenu1);
 
@@ -162,8 +175,14 @@ public class PersonProject extends javax.swing.JFrame {
         mnuclear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         mnuclear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/exit.png"))); // NOI18N
         mnuclear.setText("Clear");
+        mnuclear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuclearActionPerformed(evt);
+            }
+        });
         jMenu2.add(mnuclear);
 
+        mnuadd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         mnuadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/insert.png"))); // NOI18N
         mnuadd.setText("Add");
         mnuadd.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +192,7 @@ public class PersonProject extends javax.swing.JFrame {
         });
         jMenu2.add(mnuadd);
 
+        mnudelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         mnudelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/delete.png"))); // NOI18N
         mnudelete.setText("Delete");
         mnudelete.addActionListener(new java.awt.event.ActionListener() {
@@ -186,17 +206,35 @@ public class PersonProject extends javax.swing.JFrame {
 
         jMenu4.setText("Filter");
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/all.png"))); // NOI18N
-        jMenuItem3.setText("Show All");
-        jMenu4.add(jMenuItem3);
+        mnushowall.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mnushowall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/all.png"))); // NOI18N
+        mnushowall.setText("Show All");
+        mnushowall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnushowallActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnushowall);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/female.png"))); // NOI18N
-        jMenuItem4.setText("Female");
-        jMenu4.add(jMenuItem4);
+        mnufemale.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        mnufemale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/female.png"))); // NOI18N
+        mnufemale.setText("Female");
+        mnufemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnufemaleActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnufemale);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/male.png"))); // NOI18N
-        jMenuItem5.setText("Male");
-        jMenu4.add(jMenuItem5);
+        mnumale.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        mnumale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10InsertDelete/male.png"))); // NOI18N
+        mnumale.setText("Male");
+        mnumale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnumaleActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnumale);
 
         jMenuBar1.add(jMenu4);
 
@@ -217,7 +255,7 @@ public class PersonProject extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addComponent(txtage)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -248,29 +286,106 @@ public class PersonProject extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
-        // TODO add your handling code here:
+       
+        Person temp= new Person("","",1);// TODO add your handling code here:
         try {
-            String gender = (buttonGroup1.getSelection().getActionCommand());
-            if (gender.equals("M")) {
+            String g = (buttonGroup1.getSelection().getActionCommand());
+            
+            if (g.equals("M")) {
                 System.out.println("Male chosen");
-            } else if (gender.equals("F")) {
+            
+                
+            } else if (g.equals("F")) {
                 System.out.println("Female chosen");
+             
             }
-        } catch (Exception e) {
-            System.out.println("Must choose gender");
-        }
+       //}catch (Exception e) {
+          // System.out.println("Must choose gender");
+           //return;
+        //}
+        //try{
+        
+        Person t =new Person(txtname.getText(),buttonGroup1.getSelection().getActionCommand(),Integer.parseInt(txtage.getText())) ;
+             temp=t;}
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this,"You must fill the form correctly!");
+                   // System.out.println("Must fill the form correctly");
+                    return;
+                   }
+        
+        int alreadyinlist= search(people, temp);
+        if (alreadyinlist !=-1)
+            
+            {JOptionPane.showMessageDialog(this,"Person's  name is already in the list!");
+            clearForm();
+             return; }
+            else 
+        {   
+        int locinsert = findInsertPoint(people,temp);
+        
+       people.add(locinsert,temp);
+       list.add(locinsert,temp.getName());}
+       
+       clearForm();
+                    
     }//GEN-LAST:event_mnuaddActionPerformed
 
     private void mnudeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnudeleteActionPerformed
-        // TODO add your handling code here:
+       // String nametodelete;
+       // nametodelete=txtname.getText();
+
+    Person del =new Person(txtname.getText(),buttonGroup1.getSelection().getActionCommand(),Integer.parseInt(txtage.getText()));
+    int pos= search(people, del);
+    if (pos>=0){
+    people.remove(pos);
+    list.removeElementAt(pos);
+    clearForm();}
     }//GEN-LAST:event_mnudeleteActionPerformed
 
     private void lstpeopleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstpeopleMouseClicked
         // TODO add your handling code here:
         String name = lstpeople.getSelectedValue();
-        int loc = search(people, new Person(name, "", 0));
-        show(people.get(loc));
+        int ind = search(people, new Person(name, "", 0));
+        show(people.get(ind));
     }//GEN-LAST:event_lstpeopleMouseClicked
+
+    private void mnuclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuclearActionPerformed
+        clearForm();// TODO add your handling code here:
+    }//GEN-LAST:event_mnuclearActionPerformed
+
+    private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
+System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuexitActionPerformed
+
+    private void mnushowallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnushowallActionPerformed
+        for (Person p : people) {
+            list.removeElement(p.getName());}
+            for (Person p : people) {
+            list.addElement(p.getName());}
+            jMenu2.setEnabled(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_mnushowallActionPerformed
+
+    private void mnufemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemaleActionPerformed
+     
+        for (Person p : people) {
+            list.removeElement(p.getName());}
+       
+       for (Person p : people) {
+        if (p.getGender().equals("F")){
+        list.addElement(p.getName());}}
+       jMenu2.setEnabled(false);
+// TODO add your handling code here:
+    }//GEN-LAST:event_mnufemaleActionPerformed
+
+    private void mnumaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnumaleActionPerformed
+        for (Person p : people) {
+            list.removeElement(p.getName());}
+        for (Person p: people){
+        if (p.getGender().equals("M")){
+        list.addElement(p.getName());}}
+        jMenu2.setEnabled(false);
+    }//GEN-LAST:event_mnumaleActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -314,16 +429,16 @@ public class PersonProject extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lstpeople;
     private javax.swing.JMenuItem mnuadd;
     private javax.swing.JMenuItem mnuclear;
     private javax.swing.JMenuItem mnudelete;
+    private javax.swing.JMenuItem mnuexit;
+    private javax.swing.JMenuItem mnufemale;
+    private javax.swing.JMenuItem mnumale;
+    private javax.swing.JMenuItem mnushowall;
     private javax.swing.JRadioButton optFemale;
     private javax.swing.JRadioButton optMale;
     private javax.swing.JTextField txtage;
