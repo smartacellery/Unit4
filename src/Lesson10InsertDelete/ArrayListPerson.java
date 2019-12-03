@@ -38,7 +38,7 @@ public class ArrayListPerson {
         loc = findInsertPoint(peeps, p);
         peeps.add(loc,p);
         
-        p = new Person("Penny", "female", 35);
+        p = new Person("Terry", "female", 35);
         loc = findInsertPoint(peeps, p);
         peeps.add(loc,p);
         showPerson(peeps);

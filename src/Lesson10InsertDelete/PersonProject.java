@@ -43,28 +43,28 @@ public class PersonProject extends javax.swing.JFrame {
     public static int findInsertPoint(ArrayList a, Object searchValue) {
         int left = 0;
         int right = a.size() - 1;
-        int midpoint = 0;
+        int midp = 0;
 
         while (left <= right) {
-            midpoint = (left + right) / 2;
-            int result = ((Comparable) a.get(midpoint)).compareTo(searchValue);
+            midp = (left + right) / 2;
+            int result = ((Comparable) a.get(midp)).compareTo(searchValue);
 
             if (result < 0) {
-                left = midpoint + 1;
+                left = midp + 1;
             } else {
-                right = midpoint - 1;
+                right = midp - 1;
             }
         }
-        if (((Comparable) a.get(midpoint)).compareTo(searchValue) < 0) {
-            midpoint++;
-        }
-        return midpoint;
+       if (((Comparable) a.get(midp)).compareTo(searchValue) < 0) {
+          midp++;
+       }
+        return midp;
     }
 
     //search is needed to find an item to delete - need to know its location
     public static int search(ArrayList a, Object searchValue) {
         int left = 0;
-        int right = a.size();
+        int right = a.size()-1;
         while (left <= right) {
             int midpoint = (left + right) / 2;
             int result = ((Comparable) a.get(midpoint)).compareTo(searchValue);
@@ -287,46 +287,49 @@ public class PersonProject extends javax.swing.JFrame {
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
        
-        Person temp= new Person("","",1);// TODO add your handling code here:
-        try {
-            String g = (buttonGroup1.getSelection().getActionCommand());
+       // Person temp= new Person("","",1);// TODO add your handling code here:
+       try {
+           String g = (buttonGroup1.getSelection().getActionCommand());
             
             if (g.equals("M")) {
-                System.out.println("Male chosen");
+               System.out.println("Male chosen");
             
                 
-            } else if (g.equals("F")) {
-                System.out.println("Female chosen");
+           } else if (g.equals("F")) {
+               System.out.println("Female chosen");
              
             }
-       //}catch (Exception e) {
-          // System.out.println("Must choose gender");
-           //return;
-        //}
-        //try{
+     // }catch (Exception e) {
+      //     System.out.println("Must choose gender");
+       //    return;
+      //  }
+      //  try{
         
-        Person t =new Person(txtname.getText(),buttonGroup1.getSelection().getActionCommand(),Integer.parseInt(txtage.getText())) ;
-             temp=t;}
-            catch(Exception e){
-                JOptionPane.showMessageDialog(this,"You must fill the form correctly!");
+        Person t =new Person(txtname.getText(),g,Integer.parseInt(txtage.getText())) ;
+             //temp=t;
+      }
+           catch(Exception e){
+               JOptionPane.showMessageDialog(this,"You must fill the form correctly!");
                    // System.out.println("Must fill the form correctly");
-                    return;
-                   }
-        
-        int alreadyinlist= search(people, temp);
-        if (alreadyinlist !=-1)
+                  return;
+                 }
+       Person temp =new Person(txtname.getText(),buttonGroup1.getSelection().getActionCommand(),Integer.parseInt(txtage.getText())) ;
+      int alreadyinlist= search(people,temp );
+        if (alreadyinlist >=0)
             
-            {JOptionPane.showMessageDialog(this,"Person's  name is already in the list!");
-            clearForm();
-             return; }
-            else 
-        {   
+           {JOptionPane.showMessageDialog(this,"Person's  name is already in the list!");
+           clearForm();
+           return; }
+           else 
+       { 
         int locinsert = findInsertPoint(people,temp);
         
-       people.add(locinsert,temp);
-       list.add(locinsert,temp.getName());}
+        people.add(locinsert,temp);
+        list.add(locinsert, temp.getName());//}
+        
+    
        
-       clearForm();
+       clearForm();}
                     
     }//GEN-LAST:event_mnuaddActionPerformed
 
@@ -338,8 +341,8 @@ public class PersonProject extends javax.swing.JFrame {
     int pos= search(people, del);
     if (pos>=0){
     people.remove(pos);
-    list.removeElementAt(pos);
-    clearForm();}
+    list.removeElementAt(pos);}
+    clearForm();
     }//GEN-LAST:event_mnudeleteActionPerformed
 
     private void lstpeopleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstpeopleMouseClicked

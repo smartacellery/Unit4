@@ -30,6 +30,6 @@ public class Person implements Comparable {
     @Override
     public int compareTo(Object t) {
         String othername = ((Person) t).getName();
-        return name.compareTo(othername);
+        return this.name.compareTo(othername);
     }
 }
